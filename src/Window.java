@@ -21,10 +21,8 @@ public class Window extends JFrame {
         JPanel panel = new JPanel();
         panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
 
-        JButton button = new JButton("Load");
-        panel.add(button);
-
         panel.add(new JScrollPane(table));
+        table.loadData();
 
         add(panel);
     }
