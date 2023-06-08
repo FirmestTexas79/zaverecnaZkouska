@@ -61,14 +61,7 @@ public class Table extends JTable {
             e.printStackTrace();
         }
 
-        for (CustomerInfo customer: customerInfos) {
-            System.out.println("Customer ID: " + customer.getId());
-            System.out.println("First Name: " + customer.getFirstName());
-            System.out.println("Last Name: " + customer.getSurName());
-            System.out.println("Quantity: " + customer.getQuantity());
-            System.out.println("Total Price: " + customer.getTotalPrice());
-            System.out.println();
-        }
+        updateModel();
     }
 
     private void init() {
