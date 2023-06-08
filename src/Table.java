@@ -14,14 +14,14 @@ public class Table extends JTable {
     }
 
     public void loadData() {
-        // Read and merge the people.txt file
+        // Přečtěte a sloučí soubor people.txt
         try (BufferedReader reader = new BufferedReader(new FileReader("src/people.txt"))) {
             String line;
-            boolean isFirstLine = true; // Flag to skip the header line
+            boolean isFirstLine = true; // vynechání řádku záhlaví
             while ((line = reader.readLine()) != null) {
                 if (isFirstLine) {
                     isFirstLine = false;
-                    continue; // Skip the header line
+                    continue; // vynechání řádku záhlaví
                 }
                 String[] parts = line.split(";");
                 int id = Integer.parseInt(parts[0]);
@@ -33,14 +33,14 @@ public class Table extends JTable {
             e.printStackTrace();
         }
 
-        // Read and merge the tshirts.txt file
+        // Přečtěte a sloučí soubor tshirts.txt
         try (BufferedReader reader = new BufferedReader(new FileReader("src/tshirts.txt"))) {
             String line;
-            boolean isFirstLine = true; // Flag to skip the header line
+            boolean isFirstLine = true; // vynechání řádku záhlaví
             while ((line = reader.readLine()) != null) {
                 if (isFirstLine) {
                     isFirstLine = false;
-                    continue; // Skip the header line
+                    continue; // vynechání řádku záhlaví
                 }
                 String[] parts = line.split(";");
                 String size = parts[0];
@@ -48,9 +48,10 @@ public class Table extends JTable {
                 double price = Double.parseDouble(parts[2]);
                 int customerId = Integer.parseInt(parts[3]);
 
-                // Find the customer in the customerInfos list based on customer ID
+                // Vyhledání zákazníka v seznamu customerInfos na základě ID zákazníka
                 for (CustomerInfo customer : customerInfos) {
                     if (customer.getId() == customerId) {
+                        customer.setSize(size);
                         customer.setQuantity(quantity);
                         customer.setTotalPrice(price * quantity);
                         break;
@@ -66,7 +67,7 @@ public class Table extends JTable {
 
     private void init() {
         // Inicializace tabulky
-        String[] columnNames = {"Index","Firstname","Surname","Quantity", "Price"};
+        String[] columnNames = {"ID","Firstname","Surname","Size","Quantity", "Price"};
         Object[][] data = new Object[0][columnNames.length];
         DefaultTableModel model = new DefaultTableModel(data, columnNames);
         setModel(model);
@@ -78,12 +79,13 @@ public class Table extends JTable {
         model.setRowCount(0);
 
         for (CustomerInfo item : customerInfos) {
-            Object[] rowData = new Object[5];
-            rowData[0] = customerInfos.indexOf(item) + 1;
-            rowData[1] = item.getFirstName();
-            rowData[2] = item.getSurName();
-            rowData[3] = item.getQuantity();
-            rowData[4] = item.getTotalPrice();
+            Object[] rowData = new Object[6];
+            rowData[0] = item.getId();
+            rowData[1] = item.getFirstname();
+            rowData[2] = item.getSurname();
+            rowData[3] = item.getSize();
+            rowData[4] = item.getQuantity();
+            rowData[5] = item.getTotalPrice();
             model.addRow(rowData);
         }
     }
