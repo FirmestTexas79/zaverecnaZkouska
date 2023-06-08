@@ -1,0 +1,7 @@
+ID;FIRSTNAME;SURNAME
+1;Thomas;Muller
+6;Dita;Hansen
+7;George;Clees
+2;Amanda;Fergusson
+9;Andrew;Healy
+10;Clara;Hamilton
